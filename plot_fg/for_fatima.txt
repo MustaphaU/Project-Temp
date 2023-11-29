@@ -1,0 +1,10 @@
+CO2 and CH4
+low=0-2km
+upper =2-4 km
+xupper=4+km
+
+
+SF6 and N2O
+low=0-2km
+med=2-4km
+upper=4+km
