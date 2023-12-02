@@ -1,0 +1,41 @@
+not_needed
+
+#load the n2o mid monthly data
+sf6_upper_df = pd.read_csv('for_fatima/SF6 Upper Monthly.csv')
+#remove the nan values
+sf6_upper_df.dropna(inplace=True)
+sf6_upper_df.columns
+
+import matplotlib.pyplot as plt
+
+def plot_mean_and_std(dataframe,  ylabel, title, color, figsize=(12, 6), dpi=800, rotation=90, datetime_col='datetime', mean_col='mean', std_col='std', xlabel='Month',):
+    """
+    Plot a time series graph with mean and standard deviation.
+
+    :param dataframe: DataFrame containing the data.
+    :param datetime_col: Column name for the datetime values.
+    :param mean_col: Column name for the mean values.
+    :param std_col: Column name for the standard deviation values.
+    :param xlabel: Label for the X-axis.
+    :param ylabel: Label for the Y-axis.
+    :param title: Title of the plot.
+    :param figsize: Size of the figure (default: (12, 6)).
+    :param dpi: Dots per inch for the plot (default: 500).
+    :param rotation: Rotation angle for X-axis labels (default: 90).
+    """
+    plt.figure(figsize=figsize, dpi=dpi)
+    plt.plot(dataframe[datetime_col], dataframe[mean_col], color=color, linewidth=1.5)
+    plt.fill_between(dataframe[datetime_col], dataframe[mean_col] - dataframe[std_col], dataframe[mean_col] + dataframe[std_col], alpha=0.5, color=color)
+    plt.xlabel(xlabel, fontsize=20, color='darkgreen')
+    plt.xticks(dataframe[datetime_col][::60], rotation=rotation)
+    plt.ylabel(ylabel, fontsize=20, color='darkgreen')
+    plt.title(title, fontsize=20, color='darkgreen')
+    plt.xticks(fontsize=15, color='darkgreen')
+    plt.yticks(fontsize=15, color='darkgreen')
+    plt.legend(['Mean', 'Std'], loc='upper left', fontsize=15)
+    plt.show()
+
+# Example usage
+# plot_mean_and_std(methane_middle_df, 'datetime', 'mean', 'std', 'Month', '$CH_4$ concentrations (ppm)', '$CH_4$ Middle Monthly')
+
+plot_mean_and_std(N2O_upper_df, '$N_2O$ concentrations (ppb)', '$N_2O$ Upper Monthly', 'orange')
